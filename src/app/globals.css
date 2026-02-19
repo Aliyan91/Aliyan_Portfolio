@@ -1,8 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #04040d;
+  --foreground: #e9ecff;
+  --panel: rgba(10, 12, 29, 0.7);
+  --line: rgba(142, 164, 255, 0.22);
+  --primary: #7b9cff;
+  --accent: #42f7da;
 }
 
 @theme inline {
@@ -12,15 +16,216 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
 }
 
 body {
-  background: var(--background);
+  margin: 0;
+  background: radial-gradient(circle at 20% 20%, #101a53 0%, transparent 35%),
+    radial-gradient(circle at 85% 15%, #0d3f70 0%, transparent 25%),
+    radial-gradient(circle at 70% 80%, #052926 0%, transparent 30%),
+    var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, sans-serif;
+}
+
+.page-shell {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 3rem 1.2rem;
+}
+
+.bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 34px 34px;
+  opacity: 0.14;
+  pointer-events: none;
+}
+
+.orb {
+  position: absolute;
+  width: 24rem;
+  height: 24rem;
+  border-radius: 50%;
+  filter: blur(40px);
+  opacity: 0.28;
+  animation: float 10s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.orb-one {
+  top: -8rem;
+  right: -6rem;
+  background: #5168ff;
+}
+
+.orb-two {
+  bottom: -10rem;
+  left: -8rem;
+  background: #0cb09a;
+  animation-delay: -4s;
+}
+
+.portfolio {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  gap: 1.4rem;
+}
+
+.glass {
+  border: 1px solid rgba(168, 184, 255, 0.26);
+  background: var(--panel);
+  box-shadow: 0 0 0 1px rgba(123, 156, 255, 0.1) inset,
+    0 18px 50px rgba(0, 0, 0, 0.4);
+  border-radius: 1.25rem;
+  backdrop-filter: blur(10px);
+  padding: 1.4rem;
+}
+
+.hero h1 {
+  margin: 0.6rem 0;
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  line-height: 1.1;
+}
+
+.eyebrow {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.76rem;
+  color: #9ab6ff;
+}
+
+.hero-copy {
+  max-width: 70ch;
+  color: #d2dafc;
+  line-height: 1.7;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.btn {
+  padding: 0.72rem 1.1rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  color: #061033;
+  background: linear-gradient(120deg, var(--accent), #8ee3ff);
+  box-shadow: 0 10px 24px rgba(66, 247, 218, 0.23);
+}
+
+.btn-secondary {
+  color: #dfe6ff;
+  border: 1px solid rgba(188, 200, 255, 0.45);
+}
+
+h2 {
+  margin: 0 0 0.85rem;
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
+}
+
+.chip-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.chip {
+  border: 1px solid rgba(170, 188, 255, 0.35);
+  border-radius: 999px;
+  padding: 0.45rem 0.85rem;
+  font-size: 0.88rem;
+  background: rgba(103, 122, 206, 0.14);
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.project-card h3 {
+  margin: 0;
+}
+
+.project-card p {
+  color: #d9e0ff;
+  line-height: 1.55;
+}
+
+.project-card ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0.9rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.project-card li {
+  font-size: 0.8rem;
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(66, 247, 218, 0.16);
+  border: 1px solid rgba(66, 247, 218, 0.35);
+}
+
+.impact {
+  font-weight: 600;
+  color: #99f7e7;
+}
+
+.contact p {
+  color: #ced7ff;
+}
+
+.reveal {
+  animation: reveal 0.9s ease both;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
